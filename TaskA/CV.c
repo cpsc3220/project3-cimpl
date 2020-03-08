@@ -12,7 +12,7 @@ void init_cv(struct CV* cv)
     cv->broadcast = broadcast;
 }
 
-free_cv(struct CV* cv)
+void free_cv(struct CV* cv)
 {
     int err = pthread_cond_destroy(&cv->cond);
     assert(!err);
@@ -21,15 +21,15 @@ free_cv(struct CV* cv)
     cv->broadcast = NULL;
 }
 
-void wait(struct CV* cv, Lock *lock)
+void wait(struct CV* cv, struct Lock *lock)
 {
-  int err = pthread_cond_wait(&cv->cond, lock->getRawLock());
+  int err = pthread_cond_wait(&cv->cond, lock->getRawLock(lock));
   assert(!err);
 }
 
 void signal(struct CV* cv)
 {
-  int err = pthread_cond_signal(cv->cond);
+  int err = pthread_cond_signal(&cv->cond);
   assert(!err);
 }
 

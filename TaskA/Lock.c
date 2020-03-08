@@ -2,13 +2,6 @@
 #include <pthread.h>
 #include "Lock.h"
 
-void init_lock(struct Lock* lock)
-{
-  int err = pthread_mutex_init(&lock->lock, NULL);
-  assert(!err);
-  lock->acquire = acquire;
-  lock->release = release;
-}
 
 void free_lock(struct Lock* lock)
 {
@@ -34,3 +27,12 @@ getRawLock(struct Lock* lock)
 {
   return &lock->lock;
 } 
+
+void init_lock(struct Lock* lock)
+{
+  int err = pthread_mutex_init(&lock->lock, NULL);
+  assert(!err);
+  lock->acquire = acquire;
+  lock->release = release;
+  lock->getRawLock = getRawLock; // CV needs this
+}

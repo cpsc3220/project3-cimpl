@@ -6,13 +6,8 @@
 #include "thread.h"
 #include "Lock.h"
 #include "CV.h"
-#include "Queue.h"
+#include "Deque.h"
 #include <assert.h>
-
-struct Task {
-    void (*func)(void *);
-    void *param;
-};
 
 void * executor(void *p);
 
@@ -37,6 +32,6 @@ struct ThreadPool {
     thread_t *threads;
     int nThreads;
     bool stop;
-    struct Queue* queue;
+    struct Deque queue;
 };
 #endif //PROJECT3_THREADPOOL_H

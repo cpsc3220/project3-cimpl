@@ -3,7 +3,7 @@ all: $(BINARIES)
 
 CFLAGS := $(CFLAGS) -g -Wall -Werror -D_POSIX_THREAD_SEMANTICS -Wno-unused-parameter
 
-THREADLIBS := Lock.o thread.o
+THREADLIBS := Lock.o thread.o CV.o  Deque.o
 CTHREADLIBS := thread.o -lpthread
 
 clean:
